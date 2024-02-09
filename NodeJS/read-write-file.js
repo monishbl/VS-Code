@@ -1,4 +1,5 @@
 const fs = require('fs');
+// import {fs} from 'fs';
 fs.writeFile('message.txt', 'Hello World! 👋', (err)=> {
     if (err) {
         throw err;
