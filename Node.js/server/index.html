@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button onclick="increment()">click me</button>
+    <span id="status"></span>
+    <script>
+        let counter = 0;
+        const stat = document.getElementById('status');
+        stat.style.color='black';
+        stat.style.fontSize='15px';
+        function increment(){
+            counter++;
+            console.log(counter);
+            stat.innerHTML="you have clicked "+counter+" times";
+            if (counter>=50){
+                stat.style.color='red';
+                stat.style.fontSize='20px';
+                stat.innerHTML="you have clicked "+counter+" times, bruh its tooo much";
+            }
+            if (counter>74){
+                alert("Yayy, you are good with your fingers, now seriously - STOP!!!");
+                alert("counter will reset");
+                counter=0;
+                stat.style.color='black';
+                stat.style.fontSize='15px';
+                stat.innerHTML="you have clicked "+counter+" times";
+            }
+        }
+    </script>
+</body>
+</html>
