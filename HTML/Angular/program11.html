@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program 11</title>
+    <script src="angular.min.js"></script>
+    <script>
+        var app = angular.module('p11',[])
+        app.controller('p11ctrl',function($scope){
+            $scope.list=['Monish','Harsha','Sanjay']
+            $scope.upper=false
+            $scope.lower=true
+            $scope.Upper=function(){
+                $scope.upper=true
+                $scope.lower=false
+            }
+            $scope.Lower=function(){
+                $scope.upper=false
+                $scope.lower=true
+            }
+        })
+    </script>
+</head>
+<body ng-app="p11" ng-controller="p11ctrl">
+    <button ng-click="Upper()">Upper</button>
+    <button ng-click="Lower()">Lower</button>
+
+    <table border=1>
+        <tr><th>Sl no</th><th>Name</th></tr>
+        <tr ng-repeat="item in list">
+            <td>{{$index+1}}</td>
+            <td ng-show="upper">{{item|uppercase}}</td>
+            <td ng-show="lower">{{item|lowercase}}</td>
+        </tr>
+    </table>
+</body>
+</html>
