@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program 12</title>
+    <script src="angular.min.js"></script>
+    <script>
+        var app = angular.module("p12",[])
+        app.controller("p12ctrl",function($scope){
+            $scope.date=new Date()
+        })
+    </script>
+</head>
+<body ng-app="p12" ng-controller="p12ctrl">
+    current date is : {{date}} <br>
+    short-date is : {{date | date:'short'}} <br>
+    long-date is : {{date | date:'long'}} <br>
+    medium-date is : {{date | date:'medium'}} <br>
+    
+</body>
+</html>
