@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table, th, td{
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        td,th{
+            padding-inline: 5px;
+        }
+    </style>
+    <script src="angular.min.js"></script>
+    <script>
+        var app = angular.module("app", []);
+        app.controller("ctrl", function($scope){
+            $scope.generate = function(){
+                $scope.list=[]
+                for(var i=0; i<$scope.num; i++){
+                    var item = {
+                        "slno": i+1,
+                        "name": "Student "+i,
+                        "cgpa": (Math.random()*10+1).toFixed(2)
+                    }
+                    if(item.cgpa>10){
+                        item.cgpa = 10;
+                    }
+                    $scope.list.push(item);
+                }
+            }
+        });
+    </script>
+</head>
+<body ng-app="app" ng-controller="ctrl">
+    <input type="text" placeholder="enter number of students" ng-model="num">
+    <button ng-click="generate()">Generate</button>
+    <br>
+    <br>
+    <table>
+        <tr>
+            <th>Slno</th>
+            <th>Name</th>
+            <th>CGPA</th>
+        </tr>
+        <tr ng-repeat="student in list">
+            <td>{{student.slno}}</td>
+            <td>{{student.name}}</td>
+            <td>{{student.cgpa}}</td>
+        </tr>
+    </table>
+    <br>
+    number of rows in table: {{list.length}}
+</body>
+</html>

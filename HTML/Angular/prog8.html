@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="angular.min.js"></script>
+    <script>
+        var app=angular.module("myapp",[]);
+        app.controller("myctrl",function($scope){
+            $scope.username=""
+            $scope.password=""
+            $scope.noattempts=0
+            $scope.login=function(){
+                if($scope.username=="harsha"&& $scope.password=="123456"){
+                    alert("login successful")
+                }
+                else{
+                    $scope.noattempts++
+                    if($scope.noattempts<=3){
+                        alert("incorrect username and password attempts no:"+$scope.noattempts);
+                    }
+                    else{
+                        document.getElementById("lgbutton").disabled=true
+                    }
+                }
+            }
+        });
+    </script>
+    <style>
+        .errmsg{
+            color:red;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body ng-app="myapp" ng-controller="myctrl"> 
+    <h1>angular js login application</h1>
+    <form name="loginForm" ng-submit="submitForm()">
+        enter the name of the user:<input type="text" name="username" ng-model="username" ng-minlength="5" ng-maxlength="8" required placeholder="enter the name">
+        <span class="errmsg" ng-show="loginForm.username.$error.required && loginForm.username.$dirty">user name required</span>
+        <span class="errmsg" ng-show="loginForm.username.$error.minlength">minimum length is 5</span>
+        <span class="errmsg" ng-show="loginForm.username.$error.maxlength">maximum length is 8</span>
+        enter the password of the user:<input type="password" name="password" ng-model="password" ng-minlength="5" ng-maxlength="8" required placeholder="enter the password">
+        <span class="errmsg" ng-show="loginForm.password.$error.required && loginForm.userpassword.$dirty">user name required</span>
+        <span class="errmsg" ng-show="loginForm.password.$error.minlength">minimum length is 5</span>
+        <span class="errmsg" ng-show="loginForm.password.$error.maxlength">maximum length is 8</span><br>
+        <button ng-disabled="loginForm.$invalid" ng-click="login()" id="lgbutton">login</button>
+    </form>
+</body>
+</html>

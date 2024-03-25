@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="angular.min.js"></script>
+    <style>
+        .errortext{
+            color: red;
+        }
+    </style>
+    <script>
+        var app = angular.module("app", []);
+        app.controller("ctrl", function($scope){
+            $scope.username=""
+            $scope.password=""
+            $scope.attempts=0
+            $scope.login = function(){
+                if($scope.username == 'monish' && $scope.password == '123456')
+                    alert("success")
+                else{
+                    $scope.attempts++
+                    alert("numer of attempts remaining = " + (3-$scope.attempts))
+                    if($scope.attempts >= 3)
+                        document.getElementById('btn').disabled=true
+                }
+            }
+        });
+    </script>
+</head>
+<body ng-app="app" ng-controller="ctrl" ng-submit="login()">
+    <form ng-model="loginForm" name="loginForm">
+        <input type="text" name="username" ng-model="username" required ng-minlength="5" ng-maxlength="8" placeholder="enter username">
+        <input type="password" name="password" ng-model="password" required ng-minlength="5" ng-maxlength="8" placeholder="enter password">
+        <button id="btn" type="submit" ng-disabled="loginForm.$invalid">login</button>
+        <br>
+        <span class="errortext" ng-show="loginForm.username.$error.required && loginForm.username.$dirty">username is required</span>
+        <span class="errortext" ng-show="loginForm.username.$error.minlength">username must be more than 5</span>
+        <span class="errortext" ng-show="loginForm.username.$error.maxlength">username must be less than 8</span>
+        <br>
+        <span class="errortext" ng-show="loginForm.password.$error.required && loginForm.password.$dirty">password is required</span>
+        <span class="errortext" ng-show="loginForm.password.$error.minlength">password must be more than 5</span>
+        <span class="errortext" ng-show="loginForm.password.$error.maxlength">password must be less than 8</span>
+    </form>
+</body>
+</html>

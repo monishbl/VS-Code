@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table, th, td{
+            border: 1px solid black;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        td,th{
+            padding-inline: 5px;
+        }
+    </style>
+    <script src="angular.min.js"></script>
+    <script>
+        var app = angular.module("app", []);
+        app.controller("ctrl", function($scope){
+            $scope.list = [
+                {
+                    "task": "Task 1",
+                    "editing": false,
+                    "completed": true
+                },
+                {
+                    "task": "Task 2",
+                    "editing": false,
+                    "completed": false
+                },
+                {
+                    "task": "Task 3",
+                    "editing": false,
+                    "completed": false
+                }
+            ]
+            $scope.add = function(){
+                if($scope.task){
+                    var item = {
+                        "task": $scope.task,
+                        "editing": false,
+                        "completed": false
+                    }
+                    $scope.list.push(item);
+                }
+                else{
+                    alert("Please enter a task");
+                }
+            }
+            $scope.edit = function(task){
+                task.editing = true;
+            }
+            $scope.save = function(task){
+                task.editing = false;
+            }
+            $scope.delete = function(index){
+                $scope.list.splice(index, 1);
+            }
+        });
+    </script>
+</head>
+<body ng-app="app" ng-controller="ctrl">
+    <input type="text" placeholder="enter task" ng-model="task">
+    <button ng-click="add()">Add</button>
+    <br>
+    <br>
+    <table>
+        <tr>
+            <th>slno</th>
+            <th style="text-align: left;">Task</th>
+            <th>edit</th>
+            <th>completed</th>
+        </tr>
+        <tr ng-repeat="item in list">
+            <td>{{$index+1}}</td> 
+            <td style="text-align: left;">
+                <span ng-show="!item.editing">{{item.task}}</span>
+                <input type="text" ng-show="item.editing" ng-blur="save(item)" ng-model="item.task">
+            </td>
+            <td>
+                <button ng-show="!item.editing" ng-click="edit(item)">Edit</button>
+                <button ng-show="item.editing" ng-click="save(item)">save</button>
+            </td>
+            <td>
+                <input type="checkbox" ng-model="item.completed">
+            </td>
+            <td>
+                <button ng-click="delete($index)">delete</button>
+            </td>
+        </tr>
+    </table>
+    <br>
+    number of tasks: {{list.length}}
+</body>
+</html>

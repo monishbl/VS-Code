@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="angular.min.js"></script>
+    <script>
+        var app = angular.module("app", []);
+        app.controller("ctrl", function($scope){
+            $scope.list=[]
+            $scope.add = function(){
+                if($scope.item){
+                    if($scope.list.indexOf($scope.item))
+                        $scope.list.push($scope.item)
+                    else
+                        alert("item exists")
+                }
+                else
+                    alert("enter an item to insert")
+            }
+            $scope.remove = function(item_index){
+                $scope.list.splice(item_index,1)
+            }
+        });
+    </script>
+</head>
+<body ng-app="app" ng-controller="ctrl">
+    <ul ng-repeat="x in list">
+        <li>
+            {{x}}<span style="padding-left: 5px; color: red; cursor: pointer;" ng-click="remove($index)">X</span>
+        </li>
+    </ul>
+    <input type="text" placeholder="enter item" ng-model="item">
+    <button ng-click="add()">add</button>
+</body>
+</html>

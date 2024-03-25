@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="angular.min.js"></script>
+    <script>
+        var app = angular.module("app", []);
+        app.controller("ctrl", function($scope){
+            $scope.num1=0
+            $scope.num2=0
+            $scope.result=0
+            $scope.op='+'
+            $scope.calc=function(){
+                switch($scope.op){
+                    case '+' : $scope.result=$scope.num1+$scope.num2;
+                                break;
+                    case '-' : $scope.result=$scope.num1-$scope.num2;
+                                break;
+                    case '*' : $scope.result=$scope.num1*$scope.num2;
+                                break;
+                    case '/' : if($scope.num2 == 0)
+                                    alert("division by zero");
+                               else
+                                    $scope.result=$scope.num1/$scope.num2;
+                                    break;
+                }
+            }
+        });
+    </script>
+</head>
+<body ng-app="app" ng-controller="ctrl">
+    num1 = <input type="number" ng-model="num1">
+    op= <select ng-model="op">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+    num2 = <input type="number" ng-model="num2">
+    <br>
+    <button ng-click="calc()">calc</button>
+    <br>
+    result = {{result}}
+</body>
+</html>

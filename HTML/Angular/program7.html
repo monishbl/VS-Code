@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="angular.min.js"></script>
+    <script>
+        var app = angular.module("app", []);
+        app.controller("ctrl", function($scope){
+            $scope.employee_list = [
+                {
+                    "name" : "employee 1",
+                    "email" : "emloyee1@example.com",
+                    "edit" : false
+                },
+                {
+                    "name" : "employee 2",
+                    "email" : "employee2@example.com",
+                    "edit" : false
+                }
+            ]
+            $scope.add = function(){
+                if($scope.new_employee && $scope.new_employee_email){
+                    var employee = {
+                        "name" : $scope.new_employee,
+                        "email" : $scope.new_employee_email,
+                        "edit" : false
+                    }
+                $scope.employee_list.push(employee);
+                $scope.new_employee = "";
+                $scope.new_employee_email = "";
+                }
+                else{
+                    alert("Please enter correct details of employee");
+                }
+            }
+            $scope.read = function(employee){
+                employee.edit = true;
+            }
+            $scope.update = function(employee){
+                employee.edit = false;
+            }
+            $scope.delete = function(index){
+                if(confirm("Are you sure you want to delete this employee ?"))
+                    $scope.employee_list.splice(index, 1);
+            }
+        });
+    </script>
+</head>
+<body ng-app="app" ng-controller="ctrl">
+    <input type="text" ng-model="new_employee">
+    <input type="email" ng-model="new_employee_email">
+    <button ng-click="add()">Add</button>
+    <br>
+    <br>
+    <span ng-show="!employee_list.length">no rows in table, add to show</span>
+    <table ng-show="employee_list.length">
+        <tr>
+            <th>slno</th>
+            <th>name</th>
+            <th>email</th>
+            <th>read/edit</th>
+            <th>update/save</th>
+            <th>delete</th>
+        </tr>
+        <tr ng-repeat="employee in employee_list">
+            <td>{{$index+1}}</td>
+            <td>
+                <span ng-show="!employee.edit">{{employee.name}}</span>
+                <input type="text" ng-model="employee.name" ng-blur="update(employee)" ng-show="employee.edit">
+            </td>
+            <td>
+                <span ng-show="!employee.edit">{{employee.email}}</span>
+                <input type="email" ng-model="employee.email" ng-blur="update(employee)" ng-show="employee.edit">
+            </td>
+            <td>
+                <button ng-click="read(employee)">read/edit</button>
+            </td>
+            <td>
+                <button ng-click="update(employee)">update/save</button>
+            </td>
+            <td>
+                <button ng-click="delete($index)">delete</button>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
